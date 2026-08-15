@@ -3,15 +3,12 @@
 
 ## 开发
 1. 依赖环境
-- Node.js v20.17.0
-- volta
+- Node.js v24.19.0 (LTS)
+- [mise](https://mise.jdx.dev/)
 
-2. 建议使用 [volta](https://volta.sh/) 安装 [Node.js](https://nodejs.org/)
+2. 建议使用 [mise](https://mise.jdx.dev/) 管理 [Node.js](https://nodejs.org/) 与 pnpm。版本在项目根目录的 ``.mise.toml`` 中声明：
 ```sh
-volta install node@20.17.0
-```
-```sh
-volta install pnpm
+mise install
 ```
 
 3. 安装依赖
@@ -27,7 +24,7 @@ pnpm run docs:dev
 pnpm run docs:build
 ```
 
-6. 更新依赖
+6. 更新依赖（参考 [vuepress-theme-hope 文档](https://theme-hope.vuejs.press/zh/get-started/command.html)）
 ```sh
 pnpm dlx vp-update
 ```
