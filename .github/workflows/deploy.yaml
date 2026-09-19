@@ -12,6 +12,7 @@ on:
 jobs:
   build-and-deploy-production:
     runs-on: ubuntu-latest
+    environment: Cloudflare
     # Skip when a PR is closed without merging (would otherwise deploy
     # unmerged content to production)
     if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
