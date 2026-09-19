@@ -58,7 +58,7 @@ jobs:
             --region ${{ secrets.S3_REGION }} \
             --endpoint ${{ secrets.S3_ENDPOINT }} \
             --remote-root ${{ secrets.S3_REMOTE_ROOT }} \
-            --domain ${{ secrets.S3_DOMAIN }}
+            --domain ${{ vars.S3_DOMAIN }}
         env:
           RUST_LOG: info
 
