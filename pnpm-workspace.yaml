@@ -1,0 +1,5 @@
+# pnpm repository settings
+# Approve native build scripts of dependencies (pnpm v11 supply-chain policy;
+# @parcel/watcher is used by @vuepress/bundler-vite for file watching)
+allowBuilds:
+  '@parcel/watcher': true
