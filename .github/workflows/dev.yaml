@@ -35,10 +35,12 @@ jobs:
       - name: 📥 Download mdluploader
         run: |
           mkdir -p ~/temp
-          wget http://img-kodo.lionhao.top/rust_release/mdluploader.tar.gz -O ~/temp/mdluploader.tar.gz
+          gh release download --repo szhhwh/mdluploader --pattern 'mdluploader-linux-amd64.tar.gz' --dir ~/temp
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: 📂 Extract mdluploader
-        run: tar -xzf ~/temp/mdluploader.tar.gz -C ~/temp
+        run: tar -xzf ~/temp/mdluploader-linux-amd64.tar.gz -C ~/temp
 
       - name: 📤 Upload images to S3
         run: |

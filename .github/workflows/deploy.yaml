@@ -41,10 +41,12 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 📥 Download mdluploader
-        run: wget http://img-kodo.lionhao.top/rust_release/mdluploader.tar.gz -O /tmp/mdluploader.tar.gz
+        run: gh release download --repo szhhwh/mdluploader --pattern 'mdluploader-linux-amd64.tar.gz' --dir /tmp
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: 📂 Extract mdluploader
-        run: tar -xzf /tmp/mdluploader.tar.gz -C /tmp
+        run: tar -xzf /tmp/mdluploader-linux-amd64.tar.gz -C /tmp
 
       - name: 📤 Upload images to S3
         run: |
