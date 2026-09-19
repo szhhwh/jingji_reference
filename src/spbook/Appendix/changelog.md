@@ -1,8 +1,6 @@
 ---
 title: 高三特刊文档更新日志
 index: false
-category:
-  - 附录
 ---
 
 ## 2024.8.17
