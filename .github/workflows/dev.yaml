@@ -1,0 +1,82 @@
+name: Checking-doc
+run-name: Checking doc — ${{ github.run_id }}
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build-and-deploy-dev:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+      pull-requests: write
+    steps:
+      - name: 🚚 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔧 Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.21.0
+
+      - name: 🔧 Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+
+      - name: 🔧 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 📥 Download mdluploader
+        run: |
+          mkdir -p ~/temp
+          wget http://img-kodo.lionhao.top/rust_release/mdluploader.tar.gz -O ~/temp/mdluploader.tar.gz
+
+      - name: 📂 Extract mdluploader
+        run: tar -xzf ~/temp/mdluploader.tar.gz -C ~/temp
+
+      - name: 📤 Upload images to S3
+        run: |
+          ~/temp/mdluploader upload ./src \
+            --bucket ${{ secrets.S3_BUCKET }} \
+            --ak ${{ secrets.S3_ACCESS_KEY }} \
+            --sk ${{ secrets.S3_SECRET_KEY }} \
+            --region ${{ secrets.S3_REGION }} \
+            --endpoint ${{ secrets.S3_ENDPOINT }} \
+            --remote-root ${{ vars.S3_REMOTE_DEV_ROOT }} \
+            --domain ${{ vars.S3_DOMAIN }}
+        env:
+          RUST_LOG: trace
+
+      - name: 🔴 Build doc
+        run: pnpm run docs:build
+
+      - name: 🚀 Deploy to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./src/.vuepress/dist --project-name=jingji-reference
+
+      - name: 💬 Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deployUrl = process.env.DEPLOY_URL;
+            const commentBody = `🚀 Documentation preview deployed to: [${deployUrl}](${deployUrl})`;
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: commentBody
+            });
+        env:
+          DEPLOY_URL: ${{ steps.deploy.outputs.deployment-url }}
