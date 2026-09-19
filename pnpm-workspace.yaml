@@ -1,0 +1,9 @@
+# pnpm repository settings
+# Approve native build scripts of dependencies (pnpm v11 supply-chain policy;
+# @parcel/watcher is used by @vuepress/bundler-vite for file watching;
+# esbuild + workerd are pulled in when wrangler-action installs wrangler
+# ad-hoc for the Cloudflare Pages deploy step)
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  workerd: true

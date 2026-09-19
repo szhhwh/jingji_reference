@@ -1,0 +1,73 @@
+name: deploying-doc
+run-name: Deploying doc — ${{ github.run_id }}
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 30 04 * * 1,4
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  build-and-deploy-production:
+    runs-on: ubuntu-latest
+    environment: Cloudflare
+    # Skip when a PR is closed without merging (would otherwise deploy
+    # unmerged content to production)
+    if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: 🚚 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # Production deploys always target main
+          ref: main
+
+      - name: 🔧 Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.21.0
+
+      - name: 🔧 Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+
+      - name: 🔧 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 📥 Download mdluploader
+        run: gh release download --repo szhhwh/mdluploader --pattern 'mdluploader-linux-amd64.tar.gz' --dir /tmp
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: 📂 Extract mdluploader
+        run: tar -xzf /tmp/mdluploader-linux-amd64.tar.gz -C /tmp
+
+      - name: 📤 Upload images to S3
+        run: |
+          /tmp/mdluploader upload ./src \
+            --bucket ${{ secrets.S3_BUCKET }} \
+            --ak ${{ secrets.S3_ACCESS_KEY }} \
+            --sk ${{ secrets.S3_SECRET_KEY }} \
+            --region ${{ secrets.S3_REGION }} \
+            --endpoint ${{ secrets.S3_ENDPOINT }} \
+            --remote-root ${{ secrets.S3_REMOTE_ROOT }} \
+            --domain ${{ secrets.S3_DOMAIN }}
+        env:
+          RUST_LOG: info
+
+      - name: 🔴 Build doc
+        run: pnpm run docs:build
+
+      - name: 🚀 Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./src/.vuepress/dist --project-name=jingji-reference --branch=main
