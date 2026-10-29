@@ -7,6 +7,7 @@ category:
 
 ## 2026.10.29
 - [附录：文学社公开资源](resource.md#荆棘鸟文学社公开资源) -> 更新公开资源分享链接，移除网盘账号获取说明
+- 更新仓库徽章与项目托管地址为 GitHub 仓库 `szhhwh/jingji_reference`
 
 ## 2025.7.1
 - [3.2 初识 InDesign](../ChapterNo3/3.2.md)

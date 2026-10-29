@@ -1,5 +1,5 @@
 # 荆棘鸟文学社参考文档
-![GitHub Repo stars](https://img.shields.io/github/stars/szhhwh/jingji_TSreference_vue)![GitHub top language](https://img.shields.io/github/languages/top/szhhwh/jingji_TSreference_vue)![GitHub](https://img.shields.io/github/license/szhhwh/jingji_TSreference_vue)![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/szhhwh/jingji_TSreference_vue)
+![GitHub Repo stars](https://img.shields.io/github/stars/szhhwh/jingji_reference)![GitHub top language](https://img.shields.io/github/languages/top/szhhwh/jingji_reference)![GitHub](https://img.shields.io/github/license/szhhwh/jingji_reference)![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/szhhwh/jingji_reference)
 
 ## 开发
 1. 依赖环境

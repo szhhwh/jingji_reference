@@ -20,6 +20,7 @@ icon: book
 ## 最近更新
 ### 2026.10.29
 - [附录：文学社公开资源](Appendix/resource.md#荆棘鸟文学社公开资源) -> 更新公开资源分享链接，移除网盘账号获取说明
+- 更新页面顶部的仓库徽章与 [项目维护信息](#项目维护) 中的项目托管地址
 
 ### 2025.8.27
 - 更新 [项目维护信息](#项目维护) 中的项目托管地址
@@ -44,6 +45,6 @@ icon: book
 - 左侧为文档目录，右侧为本页内容的导航，点击即可跳转到对应的页面或位置![](./assets/jpg/README-1710520319220.jpeg)
 
 ## 项目维护
-该文档目前托管在 [Gitea](https://gitea.lionhao.top/jjnwxs/jingji_TSreference_vue)，由 @狮子耗耗 维护。
+该文档目前托管在 [GitHub](https://github.com/szhhwh/jingji_reference)，由 @狮子耗耗 维护。
 
 如果你有任何意见、评论以及建议，请通过邮件发送至邮箱 [szhhlionhao@qq.com](mailto:szhhlionhao@qq.com)，或通过 GitHub 的 Issues 页面进行反馈。

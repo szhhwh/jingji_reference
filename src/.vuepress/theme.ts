@@ -13,7 +13,7 @@ export default hopeTheme({
   logo: "/logo.png",
   logoDark: '/logo-dark.png',
 
-  repo: "szhhwh/jingji_TSreference_vue",
+  repo: "szhhwh/jingji_reference",
 
   docsDir: "src",
 
