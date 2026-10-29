@@ -28,3 +28,5 @@ pnpm run docs:build
 ```sh
 pnpm dlx vp-update
 ```
+
+历史作者签名通过根目录的 `.mailmap` 统一；页面贡献者同时由 `src/.vuepress/theme.ts` 的 Git 插件配置映射。新增别名时需同步更新两处。

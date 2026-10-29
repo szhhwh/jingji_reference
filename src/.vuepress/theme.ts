@@ -78,7 +78,16 @@ export default hopeTheme({
     components: {
       components: ["Badge", "BiliBili"],
     },
-    git: true,
+    git: {
+      contributors: {
+        info: [{
+          username: "szhhwh",
+          name: "szhhlionhao",
+          email: "szhhlionhao@qq.com",
+          emailAlias: ["3116737282@qq.com", "31694737+szhhwh@users.noreply.github.com"],
+        }],
+      },
+    },
     slimsearch: true,
     icon: {
       assets: "fontawesome",
