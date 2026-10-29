@@ -4,8 +4,8 @@ index: false
 icon: book
 ---
 
-![Gitea Stars](https://img.shields.io/gitea/stars/jjnwxs/jingji_TSreference_vue?gitea_url=https%3A%2F%2Fgitea.lionhao.top%2F)
-![Gitea Last Commit](https://img.shields.io/gitea/last-commit/jjnwxs/jingji_TSreference_vue?gitea_url=https%3A%2F%2Fgitea.lionhao.top%2F)
+![GitHub Repo stars](https://img.shields.io/github/stars/szhhwh/jingji_reference)
+![GitHub last commit](https://img.shields.io/github/last-commit/szhhwh/jingji_reference)
 
 欢迎来到荆棘鸟文学社美编文档！🎉
 
