@@ -16,9 +16,8 @@ icon: book
 :::
 
 ## 最近更新
-### 2025.3.9
-- [3.1 安装和配置软件](ChapterNo3/3.1.md) -> 更新 Adobe InDesign 软件下载信息
-- [附录：文学社公开资源](Appendix/resource.md#荆棘鸟文学社网盘) -> 新增文学社官方网盘
+### 2026.10.29
+- [附录：文学社公开资源](Appendix/resource.md#荆棘鸟文学社公开资源) -> 更新公开资源分享链接，移除网盘账号获取说明
 
 > [附录：历史更新日志](Appendix/changelog.md)
 
