@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: 30 04 * * 1,4
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - main
 
@@ -13,27 +12,24 @@ jobs:
   build-and-deploy-production:
     runs-on: ubuntu-latest
     environment: Cloudflare
-    # Skip when a PR is closed without merging (would otherwise deploy
-    # unmerged content to production)
-    if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     permissions:
       contents: read
       deployments: write
     steps:
       - name: 🚚 Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           # Production deploys always target main
           ref: main
 
       - name: 🔧 Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 11.21.0
 
       - name: 🔧 Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24.19.0
           cache: pnpm
@@ -66,7 +62,7 @@ jobs:
         run: pnpm run docs:build
 
       - name: 🚀 Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
