@@ -14,12 +14,6 @@ export default defineUserConfig({
     ],
     [
       'link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }
-    ],
-    [
-      "script",
-      {
-        src: 'https://events.vercount.one/js'
-      }
     ]
   ],
 
