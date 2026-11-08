@@ -10,8 +10,8 @@ export default hopeTheme({
     url: "https://github.com/szhhwh/",
   },
 
-  logo: "/logo.png",
-  logoDark: '/logo-dark.png',
+  logo: "/logo.svg",
+  logoDark: "/logo-dark.svg",
 
   repo: "szhhwh/jingji_reference",
 
