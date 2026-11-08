@@ -1,13 +1,18 @@
 import { onMounted, watch } from "vue";
 import { defineClientConfig, useRoute } from "vuepress/client";
 import SiteVisitCount from "./components/SiteVisitCount.vue";
-import { siteVisitCount, siteVisitCountFailed } from "./visit-count";
+import {
+  siteVisitCount,
+  siteVisitCountFailed,
+  siteVisitorCount,
+} from "./visit-count";
 
 let latestRequest = 0;
 
 async function recordVisit(url: string): Promise<void> {
   const request = ++latestRequest;
   siteVisitCount.value = null;
+  siteVisitorCount.value = null;
   siteVisitCountFailed.value = false;
 
   // Match Vercount's existing per-host visitor cookie to preserve UV tracking.
@@ -28,11 +33,21 @@ async function recordVisit(url: string): Promise<void> {
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const result = await response.json();
-    const count = result?.data?.site_pv;
-    if (result?.status !== "success" || typeof count !== "number" || !Number.isFinite(count)) {
+    const sitePv = result?.data?.site_pv;
+    const siteUv = result?.data?.site_uv;
+    if (
+      result?.status !== "success" ||
+      typeof sitePv !== "number" ||
+      !Number.isFinite(sitePv) ||
+      typeof siteUv !== "number" ||
+      !Number.isFinite(siteUv)
+    ) {
       throw new Error("Invalid Vercount response");
     }
-    if (request === latestRequest) siteVisitCount.value = count;
+    if (request === latestRequest) {
+      siteVisitCount.value = sitePv;
+      siteVisitorCount.value = siteUv;
+    }
   } catch {
     if (request === latestRequest) siteVisitCountFailed.value = true;
   } finally {

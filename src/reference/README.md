@@ -15,7 +15,7 @@ icon: book
 文档内容均基于 InDesign 2022 17.4 版本编写，不同版本间存在一定差异
 :::
 
-网站总访问量 <SiteVisitCount />
+<SiteVisitCount />
 
 ## 最近更新
 ### 2026.10.29
